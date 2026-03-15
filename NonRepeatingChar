@@ -1,0 +1,19 @@
+function firstNonRepeatingChar(str) {
+  let freq = {};
+
+  // Count frequency of each character
+  for (let char of str) {
+    freq[char] = (freq[char] || 0) + 1;
+  }
+
+  // Find first non-repeating character
+  for (let char of str) {
+    if (freq[char] === 1) {
+      return char;
+    }
+  }
+
+  return null;
+}
+
+console.log(firstNonRepeatingChar("aabbcde")); // c
