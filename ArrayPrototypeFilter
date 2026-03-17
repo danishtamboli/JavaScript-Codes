@@ -1,0 +1,23 @@
+Array.prototype.myFilter = function(callback, thisArg) {
+  if (this == null) {
+    throw new TypeError("Cannot read properties of null or undefined");
+  }
+
+  if (typeof callback !== "function") {
+    throw new TypeError(callback + " is not a function");
+  }
+
+  let arr = Object(this);
+  let len = arr.length;
+  let result = [];
+
+  for (let i = 0; i < len; i++) {
+    if (i in arr) {
+      if (callback.call(thisArg, arr[i], i, arr)) {
+        result.push(arr[i]);
+      }
+    }
+  }
+
+  return result;
+};
