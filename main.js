@@ -1,20 +1,16 @@
-function curry(fn) {
-  return function curried(...args) {
-    if (args.length >= fn.length) {
-      return fn(...args);
+function sumNested(arr) {
+  let sum = 0;
+
+  for (let item of arr) {
+    if (Array.isArray(item)) {
+      sum += sumNested(item);
     } else {
-      return function (...nextArgs) {
-        return curried(...args, ...nextArgs);
-      };
+      sum += item;
     }
-  };
-}
-function add(a, b, c) {
-  return a + b + c;
-}
+  }
 
-const curriedAdd = curry(add);
+  return sum;
+}
+const arr = [1, [2, 3], [4, [5]]];
 
-console.log(curriedAdd(1)(2)(3));     // 6
-console.log(curriedAdd(1, 2)(3));     // 6
-console.log(curriedAdd(1)(2, 3));     // 6
+console.log(sumNested(arr)); 
