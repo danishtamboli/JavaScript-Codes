@@ -1,16 +1,9 @@
-function sumNested(arr) {
-  let sum = 0;
+function rotate(arr, k) {
+  const n = arr.length;
+  k = k % n; // handle k > n
 
-  for (let item of arr) {
-    if (Array.isArray(item)) {
-      sum += sumNested(item);
-    } else {
-      sum += item;
-    }
-  }
-
-  return sum;
+  return [...arr.slice(-k), ...arr.slice(0, n - k)];
 }
-const arr = [1, [2, 3], [4, [5]]];
+const arr = [1, 2, 3, 4, 5];
 
-console.log(sumNested(arr)); 
+console.log(rotate(arr, 2)); // [4, 5, 1, 2, 3]
