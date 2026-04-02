@@ -1,17 +1,29 @@
-function throttle(fn, delay) {
-  let lastCall = 0;
+function mergeSortedArrays(arr1, arr2) {
+  let i = 0, j = 0;
+  let result = [];
 
-  return function (...args) {
-    const now = Date.now();
-
-    if (now - lastCall >= delay) {
-      lastCall = now;
-      fn.apply(this, args);
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] <= arr2[j]) {
+      result.push(arr1[i]);
+      i++;
+    } else {
+      result.push(arr2[j]);
+      j++;
     }
-  };
+  }
+
+  // Add remaining elements
+  while (i < arr1.length) {
+    result.push(arr1[i]);
+    i++;
+  }
+
+  while (j < arr2.length) {
+    result.push(arr2[j]);
+    j++;
+  }
+
+  return result;
 }
-const log = () => console.log("Called");
 
-const throttledLog = throttle(log, 2000);
-
-window.addEventListener("scroll", throttledLog);
+console.log(mergeSortedArrays([1, 3, 5], [2, 4, 6]));
