@@ -1,29 +1,12 @@
-function mergeSortedArrays(arr1, arr2) {
-  let i = 0, j = 0;
-  let result = [];
+function haveSameKeys(obj1, obj2) {
+  const keys1 = Object.keys(obj1).sort();
+  const keys2 = Object.keys(obj2).sort();
 
-  while (i < arr1.length && j < arr2.length) {
-    if (arr1[i] <= arr2[j]) {
-      result.push(arr1[i]);
-      i++;
-    } else {
-      result.push(arr2[j]);
-      j++;
-    }
-  }
+  if (keys1.length !== keys2.length) return false;
 
-  // Add remaining elements
-  while (i < arr1.length) {
-    result.push(arr1[i]);
-    i++;
-  }
-
-  while (j < arr2.length) {
-    result.push(arr2[j]);
-    j++;
-  }
-
-  return result;
+  return keys1.every((key, index) => key === keys2[index]);
 }
 
-console.log(mergeSortedArrays([1, 3, 5], [2, 4, 6]));
+// Example
+console.log(haveSameKeys({a:1, b:2}, {b:3, a:4})); // true
+console.log(haveSameKeys({a:1, b:2}, {a:1, c:3})); // false
