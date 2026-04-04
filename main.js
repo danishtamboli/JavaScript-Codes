@@ -1,12 +1,14 @@
-function haveSameKeys(obj1, obj2) {
-  const keys1 = Object.keys(obj1).sort();
-  const keys2 = Object.keys(obj2).sort();
-
-  if (keys1.length !== keys2.length) return false;
-
-  return keys1.every((key, index) => key === keys2[index]);
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    // Pick a random index from 0 to i
+    const j = Math.floor(Math.random() * (i + 1));
+    
+    // Swap elements arr[i] and arr[j]
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
-// Example
-console.log(haveSameKeys({a:1, b:2}, {b:3, a:4})); // true
-console.log(haveSameKeys({a:1, b:2}, {a:1, c:3})); // false
+// Example usage:
+const nums = [1, 2, 3, 4, 5];
+console.log(shuffleArray(nums));
