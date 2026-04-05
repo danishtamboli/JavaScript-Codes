@@ -1,14 +1,16 @@
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    // Pick a random index from 0 to i
-    const j = Math.floor(Math.random() * (i + 1));
-    
-    // Swap elements arr[i] and arr[j]
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
+function parseQueryParams(url) {
+  const params = new URL(url).searchParams;
+  const result = {};
 
-// Example usage:
-const nums = [1, 2, 3, 4, 5];
-console.log(shuffleArray(nums));
+  for (const [key, value] of params) {
+    if (result[key]) {
+      result[key] = [].concat(result[key], value);
+    } else {
+      result[key] = value;
+    }
+  }
+
+  return result;
+}
+parseQueryParams("...?id=1&id=2");
+// Output: { id: ["1", "2"] }
