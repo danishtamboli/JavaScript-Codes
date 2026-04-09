@@ -1,16 +1,9 @@
-function parseQueryParams(url) {
-  const params = new URL(url).searchParams;
-  const result = {};
-
-  for (const [key, value] of params) {
-    if (result[key]) {
-      result[key] = [].concat(result[key], value);
-    } else {
-      result[key] = value;
-    }
-  }
-
-  return result;
+function serializeQueryParams(obj) {
+  return Object.entries(obj)
+    .map(([key, value]) => 
+      `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join("&");
 }
-parseQueryParams("...?id=1&id=2");
-// Output: { id: ["1", "2"] }
+serializeQueryParams({ page: 2, name: "javascript" });
+// Output: "page=2&name=danish"
