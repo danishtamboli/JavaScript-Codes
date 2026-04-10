@@ -1,9 +1,18 @@
-function serializeQueryParams(obj) {
-  return Object.entries(obj)
-    .map(([key, value]) => 
-      `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-    )
-    .join("&");
+async function retry(fn, attempts) {
+  try {
+    return await fn();
+  } catch (err) {
+    if (attempts <= 1) throw err;
+    return retry(fn, attempts - 1);
+  }
+}let count = 0;
+
+async function test() {
+  count++;
+  if (count < 3) throw new Error("Fail");
+  return "Success";
 }
-serializeQueryParams({ page: 2, name: "javascript" });
-// Output: "page=2&name=danish"
+
+retry(test, 3)
+  .then(console.log)   // "Success"
+  .catch(console.error);
