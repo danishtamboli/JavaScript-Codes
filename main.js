@@ -1,13 +1,17 @@
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+function findMode(arr) {
+  const freq = {};
+  let maxCount = 0;
+  let mode;
+
+  for (let num of arr) {
+    freq[num] = (freq[num] || 0) + 1;
+
+    if (freq[num] > maxCount) {
+      maxCount = freq[num];
+      mode = num;
+    }
+  }
+
+  return mode;
 }
-
-async function demo() {
-  console.log("Start");
-
-  await sleep(2000); // waits for 2 seconds
-
-  console.log("End after 2 seconds");
-}
-
-demo();
+console.log(findMode([1, 2, 2, 3, 3, 3, 4]));
